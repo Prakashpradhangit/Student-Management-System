@@ -6,9 +6,12 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.example.student.Entity.Department;
 import com.example.student.Entity.Student;
 import com.example.student.Entity.Teacher;
+import com.example.student.Repository.DepartmentRepository;
 import com.example.student.Repository.StudentRepository;
 import com.example.student.Repository.TeacherRepository;
 
@@ -26,12 +29,20 @@ public class StudentService {
 
     private final TeacherRepository teacherRepository;
 
+    private final DepartmentRepository departmentRepository;
+
     public List<Student> findStudent() {
         return studentRepository.findAll();
     }
+ 
 
-    public Optional<Student> findStudentById(Long id) {
-        return studentRepository.findById(id);
+    public ResponseEntity<Student> findStudentById(Long id) {
+        Student stu = studentRepository.findById(id).orElse(null);
+        if(stu != null){
+            return ResponseEntity.status(HttpStatus.OK).body(stu);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     public ResponseEntity<Student> createStudent(Student stu) {

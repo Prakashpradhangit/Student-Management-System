@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.Optional;
 
-
 import com.example.student.Entity.Student;
-import com.example.student.Entity.Teacher;
 import com.example.student.Service.StudentService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RestController
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class control {
+public class StudentControl {
 
     @Autowired
     private StudentService studentService;
@@ -35,13 +33,8 @@ public class control {
         return studentService.findStudent();
     }
 
-    @GetMapping("/teacher")
-    public List<Teacher> findTeacher(){
-        return studentService.findTeacher();
-    }
-
     @GetMapping("/student/{id}")
-    public Optional<Student> getStudentByID(@PathVariable Long id) {
+    public ResponseEntity<Student> getStudentByID(@PathVariable Long id) {
         return studentService.findStudentById(id);
     }
 
