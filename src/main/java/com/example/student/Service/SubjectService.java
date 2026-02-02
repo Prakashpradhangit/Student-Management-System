@@ -10,7 +10,6 @@ import com.example.student.Entity.Subject;
 import com.example.student.Repository.SubjectRepository;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Service
 @AllArgsConstructor

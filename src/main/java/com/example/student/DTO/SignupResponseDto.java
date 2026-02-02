@@ -2,14 +2,13 @@ package com.example.student.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-public class studentDTO {
-
+@NoArgsConstructor
+public class SignupResponseDto {
     private Long id;
-    private String name;
-    private String email;
-    private String phone;
-
+    private String username;
+    
 }

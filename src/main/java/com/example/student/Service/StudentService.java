@@ -1,14 +1,11 @@
 package com.example.student.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import com.example.student.Entity.Department;
 import com.example.student.Entity.Student;
 import com.example.student.Entity.Teacher;
 import com.example.student.Repository.DepartmentRepository;

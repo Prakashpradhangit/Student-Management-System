@@ -1,6 +1,5 @@
 package com.example.student.Service;
 
-import java.lang.foreign.Linker.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +28,7 @@ public class TeacherService {
     public ResponseEntity<Teacher> createTeacher(Teacher teacher){
         teacherRepository.save(teacher);
         return ResponseEntity.status(HttpStatus.OK).body(teacher);
+
     }
 
 
