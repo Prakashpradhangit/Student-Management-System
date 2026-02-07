@@ -16,42 +16,22 @@ import io.jsonwebtoken.security.Keys;
 
 @Component
 public class AuthUtil {
-    
+
     // @Value("${jwt.secrectKey}")
-    // private String jwtSecrectKey;
-
-    // private SecretKey getSecretKey(){
-    //     return Keys.hmacShaKeyFor(jwtSecrectKey.getBytes(StandardCharsets.UTF_8));
-    // }
-
-    // public String generateJwtToken(User user){
-    //     return Jwts.builder()
-    //                 .subject(user.getUsername())
-    //                 .claim("UserId", user.getId().toString())
-    //                 .issuedAt(new Date())
-    //                 .expiration(new Date(System.currentTimeMillis() + 1000*60*10))
-    //                 .signWith(getSecretKey())
-    //                 .compact();
-    // }
-
-    private String jwtSecretKey;
+    private String jwtSecretKey = "wkehdekjdfewnrxewrkjhnrexkjhrenrliewrhewkrxewr";
 
     private SecretKey getSecretKey() {
-        return Keys.hmacShaKeyFor(
-            jwtSecretKey.getBytes(StandardCharsets.UTF_8)
-        );
+        return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 
-    public String generateJwtToken(User user) {
-
+    public String generateAccessToken(User user) {
         return Jwts.builder()
                 .subject(user.getUsername())
                 .claim("userId", user.getId().toString())
                 .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 10))
                 .signWith(getSecretKey())
                 .compact();
     }
-
 
 }

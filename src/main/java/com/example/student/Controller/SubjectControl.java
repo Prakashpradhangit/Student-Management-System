@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.student.Entity.Department;
+
 import com.example.student.Entity.Subject;
 import com.example.student.Service.SubjectService;
 

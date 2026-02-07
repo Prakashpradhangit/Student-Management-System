@@ -21,22 +21,14 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-
         httpSecurity
                 .csrf(csrfConfig -> csrfConfig.disable())
                 .sessionManagement(sessionConfig ->
                         sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").anonymous()
+                        .requestMatchers("/auth/**").permitAll()
                         .anyRequest().permitAll());
-
-        return httpSecurity.build();
-
-        // http
-        //         .csrf(csrf -> csrf.disable())
-        //         .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
-
-        // return http.build();
+                    return httpSecurity.build();
     }
 
 }
