@@ -1,19 +1,13 @@
 package com.example.student.Security;
 
-import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.autoconfigure.WebMvcProperties.Apiversion.Use;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.example.student.DTO.LoginRequestDto;
 import com.example.student.DTO.LoginResponseDto;
@@ -58,22 +52,5 @@ public class AuthService {
         return new SignupResponseDto(user.getId(), user.getUsername());
     }
 
-    // public String newLogin(LoginRequestDto dto) {
-
-    //     try {
-
-    //         authenticationManager.authenticate(
-    //                 new UsernamePasswordAuthenticationToken(
-    //                         dto.getUsername(),
-    //                         dto.getPassword()));
-
-    //         return "SUCCESS";
-
-    //     } catch (BadCredentialsException e) {
-    //         return "Bad credentials";
-    //     } catch (UsernameNotFoundException e) {
-    //         return "User not found";
-    //     }
-    // }
 
 }
