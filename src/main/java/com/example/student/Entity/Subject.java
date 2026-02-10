@@ -30,18 +30,10 @@ public class Subject {
     @Column(nullable = false, unique = true)
     private String subjectCode;
 
-    // Inverse side of Student <-> Subject
-    @ManyToMany(mappedBy = "subjects")
-    private Set<Student> students = new HashSet<>();
-
     // Many Subjects -> One Department
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
-
-    // One Subject -> Many Teachers
-    @OneToMany(mappedBy = "subject")
-    private Set<Teacher> teachers = new HashSet<>();
 
 
 
