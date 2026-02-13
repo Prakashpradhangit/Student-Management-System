@@ -2,15 +2,14 @@ package com.example.student.Service;
 
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.student.DTO.StudentResponseDto;
 import com.example.student.Entity.Student;
-import com.example.student.Entity.Teacher;
-import com.example.student.Repository.DepartmentRepository;
 import com.example.student.Repository.StudentRepository;
-import com.example.student.Repository.TeacherRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,21 +22,20 @@ import lombok.Setter;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final ModelMapper modelMapper;
 
-    private final TeacherRepository teacherRepository;
-
-    private final DepartmentRepository departmentRepository;
-
-    public List<Student> findStudent() {
-        return studentRepository.findAll();
+    public List<StudentResponseDto> getAllStudent() {
+        List<Student> students = studentRepository.findAll();
+        return students.stream()
+                .map(student -> modelMapper.map(student, StudentResponseDto.class))
+                .toList();
     }
- 
 
     public ResponseEntity<Student> findStudentById(Long id) {
         Student stu = studentRepository.findById(id).orElse(null);
-        if(stu != null){
+        if (stu != null) {
             return ResponseEntity.status(HttpStatus.OK).body(stu);
-        }else{
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
@@ -45,10 +43,6 @@ public class StudentService {
     public ResponseEntity<Student> createStudent(Student stu) {
         studentRepository.save(stu);
         return ResponseEntity.status(HttpStatus.CREATED).body(stu);
-    }
-
-    public List<Teacher> findTeacher(){
-        return teacherRepository.findAll();
     }
 
     public ResponseEntity<String> updateStudent(Long id, Student stu) {

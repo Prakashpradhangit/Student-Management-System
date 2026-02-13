@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
-
+import com.example.student.DTO.StudentResponseDto;
 import com.example.student.Entity.Student;
 import com.example.student.Service.StudentService;
 import lombok.AllArgsConstructor;
@@ -29,8 +29,8 @@ public class StudentControl {
 
 
     @GetMapping("/student")
-    public List<Student> getStudent() {
-        return studentService.findStudent();
+    public List<StudentResponseDto> getStudent() {
+        return studentService.getAllStudent();
     }
 
     @GetMapping("/student/{id}")

@@ -11,19 +11,22 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 // import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import static com.example.student.Entity.Type.RoleType.*;
 
 @Configuration
 @Slf4j
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    // private final PasswordEncoder passwordEncoder;
 
     private final JwtAuthFilter jwtAuthFilter;
     private final Oauth2SucessHandler oauth2SucessHandler;
+    private final HandlerExceptionResolver handlerExceptionResolver;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -33,16 +36,24 @@ public class WebSecurityConfig {
                         sessionConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().permitAll()
+                        .requestMatchers("/admin/**").hasRole(ADMIN.name())
+                        .requestMatchers("/department/**").hasAnyRole(ADMIN.name())
+                        .requestMatchers("/teacher/**").hasAnyRole(ADMIN.name(), TEACHER.name())
+                        .requestMatchers("/student/**").hasAnyRole(ADMIN.name(), TEACHER.name(), STUDENT.name())
+                        .anyRequest().authenticated()
                     )
                         .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                         .oauth2Login(oAuth2 -> oAuth2
                         .failureHandler((request, response, exception) -> {
                             log.error("OAuth2 error: {}", exception.getMessage());
-                            // handlerExceptionResolver.resolveException(request, response, null, exception);
+                            handlerExceptionResolver.resolveException(request, response, null, exception);
                         })
                         .successHandler(oauth2SucessHandler)
-                    );
+                    )
+                    .exceptionHandling(exceptionHandlingConfigurer ->
+                        exceptionHandlingConfigurer.accessDeniedHandler((request, response, accessDeniedException) -> {
+                            handlerExceptionResolver.resolveException(request, response, null, accessDeniedException);
+                        }));
                         
                     return httpSecurity.build();
  

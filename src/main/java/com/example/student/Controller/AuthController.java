@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.student.DTO.LoginRequestDto;
 import com.example.student.DTO.LoginResponseDto;
+import com.example.student.DTO.SignUpRequestDto;
 import com.example.student.DTO.SignupResponseDto;
 import com.example.student.DTO.UserResponse;
 import com.example.student.Entity.User;
@@ -35,15 +36,12 @@ public class AuthController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody LoginRequestDto loginRequestDto){
-        SignupResponseDto dto = authService.signup(loginRequestDto);
+    public ResponseEntity<?> signUp(@RequestBody SignUpRequestDto signUpRequestDto){
+        SignupResponseDto dto = authService.signup(signUpRequestDto);
         return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/user")
-    public List<UserResponse> getAllUser(){
-        return authService.getAllUser();
-    }
+    
     
    
 }
