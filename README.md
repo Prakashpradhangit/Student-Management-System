@@ -117,6 +117,21 @@ Sample login request:
   "password": "strongPassword"
 }
 ```
+Email Login Response
+
+- Username and Password authenticated using AuthenticationManager
+- JWT Token generated
+- Token returned to client
+
+Response Example:
+
+```json
+{
+  "id": 1,
+  "username": "prakash@gmail.com",
+  "token": "jwt-token"
+}
+````
 
 ### Student
 - `GET /student`
